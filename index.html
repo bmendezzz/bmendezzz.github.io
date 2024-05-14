@@ -1,39 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport tag for responsive design -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mobile Chatbot BM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Odin</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            height: 100vh; /* Full screen height */
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
             color: #333;
+        }
+        p {
+            color: #666;
+        }
+        #widget-container {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Bem-vindo ao Projeto Odin</h1>
+        <p>O widget será carregado abaixo:</p>
+        <div id="widget-container"></div>
 
-    <!-- Widget-Script for a floating chat bubble -->
-    <script>
-        window.project_id = "MP3ffXDIjoiAnEN4DpPe";
-        window.frame_type = "widget";
-        document.addEventListener('DOMContentLoaded', function () {
-            var widgetScript = document.createElement('script');
-            widgetScript.src = "https://app.getodin.ai/loader.min.js";
-            widgetScript.defer = true;
-            widgetScript.setAttribute('project_id', "MP3ffXDIjoiAnEN4DpPe");
-            widgetScript.setAttribute('frame_type', "widget");
-            document.body.appendChild(widgetScript);
-        });
-    </script>
-
+        <!-- Script fornecido -->
+        <script>
+            window.project_id = "1T3l3Q1vFvPScz6zWibm";
+            window.frame_type = "widget";
+        </script>
+        <script
+            src="https://app.getodin.ai/loader.min.js"
+            project_id="1T3l3Q1vFvPScz6zWibm"
+            frame_type="widget"
+            defer
+        ></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('Script Odin carregado.');
+                console.log('Project ID:', window.project_id);
+                console.log('Frame Type:', window.frame_type);
+            });
+        </script>
+    </div>
 </body>
 </html>
