@@ -9,7 +9,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,21 +17,44 @@
         }
         .container {
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
-            width: 80%;
+            width: 90%;
             max-width: 600px;
         }
         h1 {
-            color: #333;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
         p {
-            color: #666;
+            color: #7f8c8d;
+            margin-bottom: 20px;
         }
         #odin-chatbot {
             margin-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 20px;
+        }
+        /* Estilo do chatbot */
+        .chatbot-container {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .chatbot-header {
+            background-color: #e67e22;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .chatbot-body {
+            background-color: #fff;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
     </style>
 </head>
@@ -39,7 +62,16 @@
     <div class="container">
         <h1>Supportadev</h1>
         <p>Especialista Técnico em Automation Anywhere</p>
-        <div id="odin-chatbot"></div>
+        <div id="odin-chatbot">
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <h2>Supporta Dev</h2>
+                </div>
+                <div class="chatbot-body">
+                    <!-- O conteúdo do chatbot será carregado aqui -->
+                </div>
+            </div>
+        </div>
 
         <!-- Script fornecido -->
         <script>
