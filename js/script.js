@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let previousResults = [];
+
     async function fetchData() {
         try {
             const response = await fetch(apiUrl, {
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             debugElement.innerHTML += `<p>Erro ao buscar dados: ${error.message}</p>`;
         }
     }
+
     function updateTable(results, maxRows, suggestion) {
         tableBody.innerHTML = '';
 
@@ -79,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
+
     function suggestNextResult(results) {
         if (results.length < 3) {
             console.log("Resultados insuficientes para sugestão.");
@@ -123,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return sortedResults[2];
         }
     }
+
     function updateSuggestionElement(suggestion) {
         suggestionElement.innerHTML = `Sugestão do Próximo Resultado: <br>`;
         if (suggestion) {
