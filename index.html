@@ -1,68 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Page</title>
+    <title>Analisando...</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #f0f0f0, #c8d6e5);
+            margin: 0;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        h1 {
             margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
         }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
+        .suggestion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in-out;
         }
         .circle {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 5px;
-            background-color: lightgray;
-            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: transform 0.3s ease-in-out;
         }
-        .correct {
-            background-color: green;
+        .circle:hover {
+            transform: scale(1.2);
+        }
+        .Player {
+            background-color: #1a5276; /* Azul escuro */
+            color: #ffffff; /* Branco */
+        }
+        .Banker {
+            background-color: #922b21; /* Vermelho escuro */
+            color: #ffffff; /* Branco */
+        }
+        .Tie {
+            background-color: #d4ac0d; /* Amarelo escuro */
+            color: #000000; /* Preto */
+        }
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-in-out;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+        }
+        th {
+            background-color: #2980b9;
             color: white;
         }
-        #suggestion {
+        td.correct {
+            background-color: #27ae60 !important;
+            color: white;
+        }
+        .stats {
             font-size: 18px;
-            margin-bottom: 20px;
+            color: #333;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
         }
-        #stats {
-            font-size: 16px;
-            margin-bottom: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        #debug {
-            font-size: 14px;
-            color: gray;
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
+    <h1>Bac Bo.</h1>
+    <div id="suggestion" class="suggestion">Sugestão do Próximo Resultado: </div>
+    <div id="stats" class="stats"></div>
     <table id="resultsTable">
-        <thead>
-            <tr>
-                <th>Resultados</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
+        <tbody>
+            <!-- Dados serão inseridos aqui pelo JavaScript -->
+        </tbody>
     </table>
-    <div id="suggestion"></div>
-    <div id="stats"></div>
-    <div id="debug"></div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const apiUrl = 'https://api.airtable.com/v0/appBN2V1vvYM6KC7c/Table%201?maxRecords=3&view=dados_historicos';
