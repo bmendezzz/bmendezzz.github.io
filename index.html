@@ -5,23 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Page</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
         .circle {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             text-align: center;
-            line-height: 20px;
+            line-height: 30px;
             margin-right: 5px;
+            background-color: lightgray;
+            color: black;
         }
         .correct {
             background-color: green;
             color: white;
         }
+        #suggestion {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        #stats {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        #debug {
+            font-size: 14px;
+            color: gray;
+        }
     </style>
 </head>
 <body>
     <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>Resultados</th>
+            </tr>
+        </thead>
         <tbody></tbody>
     </table>
     <div id="suggestion"></div>
