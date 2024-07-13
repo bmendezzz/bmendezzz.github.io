@@ -5,10 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.querySelector('#resultsTable tbody');
     const suggestionElement = document.getElementById('suggestion');
     const statsElement = document.getElementById('stats');
-    const debugElement = document.createElement('div');
-    debugElement.id = 'debug';
-    debugElement.style.display = 'none'; // Tornando o elemento invisível
-    document.body.appendChild(debugElement);
+    const debugElement = document.getElementById('debug');
 
     if (!tableBody || !suggestionElement || !statsElement || !debugElement) {
         console.error('Erro: Não foi possível encontrar todos os elementos DOM necessários.');
@@ -32,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             const data = await response.json();
             console.log('Dados recebidos:', data);
+            debugElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`; // Exibir dados de depuração
 
             if (data.records && data.records.length > 0 && data.records[0].fields.Nome) {
                 const results = data.records[0].fields.Nome.split(', ').map(result => result.trim());
@@ -46,9 +44,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 previousResults = results;
             } else {
                 console.error('Formato de dados inesperado:', data);
+                debugElement.innerHTML += `<p>Formato de dados inesperado: ${JSON.stringify(data)}</p>`;
             }
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
+            debugElement.innerHTML += `<p>Erro ao buscar dados: ${error.message}</p>`;
         }
     }
 
@@ -101,3 +101,76 @@ document.addEventListener("DOMContentLoaded", function() {
 
         lastThree.forEach((result, index) => {
             if (result === 'Player') {
+                weightedCounts.Player += weights[index];
+            } else if (result === 'Banker') {
+                weightedCounts.Banker += weights[index];
+            } else if (result === 'Tie') {
+                weightedCounts.Tie += weights[index];
+            }
+        });
+
+        console.log('Contagem ponderada dos resultados:', weightedCounts);
+
+        // Ordena os resultados por peso
+        const sortedResults = Object.keys(weightedCounts).sort((a, b) => weightedCounts[b] - weightedCounts[a]);
+        console.log('Resultados ordenados:', sortedResults);
+
+        const lastResult = lastThree[2];
+
+        // Evita a repetição imediata do último resultado
+        if (sortedResults[0] !== lastResult) {
+            return sortedResults[0];
+        } else if (sortedResults[1] !== lastResult) {
+            return sortedResults[1];
+        } else {
+            return sortedResults[2];
+        }
+    }
+
+    function updateSuggestionElement(suggestion) {
+        suggestionElement.innerHTML = `Sugestão do Próximo Resultado: <br>`;
+        if (suggestion) {
+            const circleDiv = document.createElement('div');
+            circleDiv.classList.add('circle', suggestion);
+            circleDiv.innerText = suggestion.charAt(0);
+            suggestionElement.appendChild(circleDiv);
+            suggestionElement.innerHTML += ` ${suggestion}`;
+        } else {
+            suggestionElement.innerHTML += 'Nenhum resultado sugerido';
+        }
+    }
+
+    function updateStats(results) {
+        const counts = {
+            Player: 0,
+            Banker: 0,
+            Tie: 0
+        };
+
+        results.forEach(result => {
+            if (result === 'Player') {
+                counts.Player++;
+            } else if (result === 'Banker') {
+                counts.Banker++;
+            } else if (result === 'Tie') {
+                counts.Tie++;
+            }
+        });
+
+        const total = results.length;
+        const playerPercent = ((counts.Player / total) * 100).toFixed(2);
+        const bankerPercent = ((counts.Banker / total) * 100).toFixed(2);
+        const tiePercent = ((counts.Tie / total) * 100).toFixed(2);
+
+        statsElement.innerHTML = `Player: ${playerPercent}% | Banker: ${bankerPercent}% | Tie: ${tiePercent}%`;
+    }
+
+    function updateDebugInfo(results, suggestion) {
+        const lastThree = results.slice(-3);
+        const debugMessage = `Últimos 3 resultados: ${lastThree.join(', ')}<br>Sugestão: ${suggestion}`;
+        debugElement.innerHTML += `<p>${debugMessage}</p>`;
+    }
+
+    fetchData();
+    setInterval(fetchData, 1500);
+});
