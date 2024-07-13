@@ -116,12 +116,11 @@
             const tableBody = document.querySelector('#resultsTable tbody');
             const suggestionElement = document.getElementById('suggestion');
             const statsElement = document.getElementById('stats');
-            // Adicionando o elemento debug ao HTML
             const debugElement = document.createElement('div');
             debugElement.id = 'debug';
             debugElement.style.display = 'none'; // Tornando o elemento invisível
             document.body.appendChild(debugElement);
-            
+
             if (!tableBody || !suggestionElement || !statsElement || !debugElement) {
                 console.error('Erro: Não foi possível encontrar todos os elementos DOM necessários.');
                 return;
@@ -260,4 +259,32 @@
                 };
 
                 results.forEach(result => {
-                    if
+                    if (result === 'Player') {
+                        counts.Player++;
+                    } else if (result === 'Banker') {
+                        counts.Banker++;
+                    } else if (result === 'Tie') {
+                        counts.Tie++;
+                    }
+                });
+
+                const total = results.length;
+                const playerPercent = ((counts.Player / total) * 100).toFixed(2);
+                const bankerPercent = ((counts.Banker / total) * 100).toFixed(2);
+                const tiePercent = ((counts.Tie / total) * 100).toFixed(2);
+
+                statsElement.innerHTML = `Player: ${playerPercent}% | Banker: ${bankerPercent}% | Tie: ${tiePercent}%`;
+            }
+
+            function updateDebugInfo(results, suggestion) {
+                const lastThree = results.slice(-3);
+                const debugMessage = `Últimos 3 resultados: ${lastThree.join(', ')}<br>Sugestão: ${suggestion}`;
+                debugElement.innerHTML = debugMessage;
+            }
+
+            fetchData();
+            setInterval(fetchData, 1500);
+        });
+    </script>
+</body>
+</html>
