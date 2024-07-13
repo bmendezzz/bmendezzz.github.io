@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", function() {
     function fetchData() {
         fetch(apiUrl, {
             headers: {
-                'Authorization': apiKey
-            }
+                'Authorization': apiKey,
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors'
         })
         .then(response => {
             if (!response.ok) {
