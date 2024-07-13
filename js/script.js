@@ -5,9 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.querySelector('#resultsTable tbody');
     const suggestionElement = document.getElementById('suggestion');
     const statsElement = document.getElementById('stats');
-    const debugElement = document.getElementById('debug');
 
-    if (!tableBody || !suggestionElement || !statsElement || !debugElement) {
+    if (!tableBody || !suggestionElement || !statsElement) {
         console.error('Erro: Não foi possível encontrar todos os elementos DOM necessários.');
         return;
     }
