@@ -113,10 +113,14 @@
             const apiUrl = 'https://api.airtable.com/v0/appBN2V1vvYM6KC7c/Table%201?maxRecords=3&view=dados_historicos';
             const apiKey = 'Bearer patUVaLf7yR0gM5gu.44e755779f53b6ccf29dd18f8de42362564fea5fffb0dbe2f6c50d0473d2efba';
             
-            const tableBody = document.getElementById('resultsTable')?.querySelector('tbody');
+            const tableBody = document.querySelector('#resultsTable tbody');
             const suggestionElement = document.getElementById('suggestion');
             const statsElement = document.getElementById('stats');
-            const debugElement = document.getElementById('debug');
+            // Adicionando o elemento debug ao HTML
+            const debugElement = document.createElement('div');
+            debugElement.id = 'debug';
+            debugElement.style.display = 'none'; // Tornando o elemento invisível
+            document.body.appendChild(debugElement);
             
             if (!tableBody || !suggestionElement || !statsElement || !debugElement) {
                 console.error('Erro: Não foi possível encontrar todos os elementos DOM necessários.');
@@ -256,32 +260,4 @@
                 };
 
                 results.forEach(result => {
-                    if (result === 'Player') {
-                        counts.Player++;
-                    } else if (result === 'Banker') {
-                        counts.Banker++;
-                    } else if (result === 'Tie') {
-                        counts.Tie++;
-                    }
-                });
-
-                const total = results.length;
-                const playerPercent = ((counts.Player / total) * 100).toFixed(2);
-                const bankerPercent = ((counts.Banker / total) * 100).toFixed(2);
-                const tiePercent = ((counts.Tie / total) * 100).toFixed(2);
-
-                statsElement.innerHTML = `Player: ${playerPercent}% | Banker: ${bankerPercent}% | Tie: ${tiePercent}%`;
-            }
-
-            function updateDebugInfo(results, suggestion) {
-                const lastThree = results.slice(-3);
-                const debugMessage = `Últimos 3 resultados: ${lastThree.join(', ')}<br>Sugestão: ${suggestion}`;
-                debugElement.innerHTML = debugMessage;
-            }
-
-            fetchData();
-            setInterval(fetchData, 1500);
-        });
-    </script>
-</body>
-</html>
+                    if
