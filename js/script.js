@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log('Dados recebidos:', data);
-            debugElement.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`; // Exibir dados de depuração
 
             if (data.records && data.records.length > 0 && data.records[0].fields.Nome) {
                 const results = data.records[0].fields.Nome.split(', ').map(result => result.trim());
@@ -40,15 +38,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 updateTable(results, maxRows, suggestion);
                 updateStats(results);
-                updateDebugInfo(results, suggestion); // Atualiza informações de depuração
                 previousResults = results;
             } else {
                 console.error('Formato de dados inesperado:', data);
-                debugElement.innerHTML += `<p>Formato de dados inesperado: ${JSON.stringify(data)}</p>`;
             }
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
-            debugElement.innerHTML += `<p>Erro ao buscar dados: ${error.message}</p>`;
         }
     }
 
@@ -84,12 +79,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function suggestNextResult(results) {
         if (results.length < 3) {
-            console.log("Resultados insuficientes para sugestão.");
             return 'Player';  // Retorna um valor padrão
         }
 
         const lastThree = results.slice(-3);
-        console.log('Últimos 3 resultados:', lastThree);
 
         const weightedCounts = {
             Player: 0,
@@ -109,11 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        console.log('Contagem ponderada dos resultados:', weightedCounts);
-
         // Ordena os resultados por peso
         const sortedResults = Object.keys(weightedCounts).sort((a, b) => weightedCounts[b] - weightedCounts[a]);
-        console.log('Resultados ordenados:', sortedResults);
 
         const lastResult = lastThree[2];
 
@@ -163,12 +153,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const tiePercent = ((counts.Tie / total) * 100).toFixed(2);
 
         statsElement.innerHTML = `Player: ${playerPercent}% | Banker: ${bankerPercent}% | Tie: ${tiePercent}%`;
-    }
-
-    function updateDebugInfo(results, suggestion) {
-        const lastThree = results.slice(-3);
-        const debugMessage = `Últimos 3 resultados: ${lastThree.join(', ')}<br>Sugestão: ${suggestion}`;
-        debugElement.innerHTML += `<p>${debugMessage}</p>`;
     }
 
     fetchData();
